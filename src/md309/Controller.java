@@ -14,7 +14,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
-import org.opencv.core.Point;
 
 import java.io.IOException;
 import java.net.URL;
@@ -88,13 +87,7 @@ public class Controller implements Initializable {
     }
 
     public void doCapture(ActionEvent event) {
-        try {
-            Image i = ig.grab();
-            camview.setImage(ig.grab());
-        } catch (IOException ioe) {
-            System.err.println("Failed to grab image: " + ioe);
-            ioe.printStackTrace();
-        }
+        camview.setImage(ig.grab());
     }
 
     public void doTransform(ActionEvent event) {

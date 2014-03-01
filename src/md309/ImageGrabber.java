@@ -1,7 +1,6 @@
 package md309;
 
 import javafx.scene.image.Image;
-import javafx.scene.shape.Polygon;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
 import org.opencv.core.Point;
@@ -14,7 +13,7 @@ import java.io.IOException;
 /**
  * Created by scott on 3/1/14.
  */
-public class ImageGrabber {
+final class ImageGrabber {
     private VideoCapture vc;
     private Point[] bounds;
 
@@ -38,7 +37,7 @@ public class ImageGrabber {
         bounds = null;
     }
 
-    public Image grab() throws IOException {
+    public Image grab() {
         Mat m = new Mat();
         vc.read(m);
 
