@@ -1,5 +1,6 @@
 package md309;
 
+import javafx.animation.AnimationTimer;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -28,6 +29,31 @@ public class Controller implements Initializable {
     @FXML
     private Polygon bounds;
 
+    private AnimationTimer video = new AnimationTimer() {
+        private long last = 0;
+        private boolean videoOn = false;
+
+        @Override
+        public void handle(long l) {
+            if (videoOn && (l - last > 1000000000L)) {
+                camview.setImage(ig.grab());
+                last = l;
+            }
+        }
+
+        @Override
+        public void start() {
+            videoOn = true;
+            super.start();
+        }
+
+        @Override
+        public void stop() {
+            videoOn = false;
+            super.stop();
+        }
+    };
+
     private ImageGrabber ig;
 
     public void initialize(URL location, ResourceBundle resources) {
@@ -52,11 +78,13 @@ public class Controller implements Initializable {
                 }
             });
             imagepane.getChildren().add(handle);
+            video.start();
         }
     }
 
     private double dragDeltaX, dragDeltaY;
 
+    // TODO: Don't allow user to create non-convex polygons
     private void setDragHandler(final Circle circle) {
         circle.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override public void handle(MouseEvent mouseEvent) {
@@ -93,9 +121,12 @@ public class Controller implements Initializable {
     public void doTransform(ActionEvent event) {
         Double[] points = new Double[8];
         ig.setTransform(bounds.getPoints().toArray(points));
+        video.stop();
+        camview.setImage(ig.grab());
     }
 
     public void doReset(ActionEvent event) {
         ig.resetTransform();
+        video.start();
     }
 }
