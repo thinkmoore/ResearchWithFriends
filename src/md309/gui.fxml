@@ -17,7 +17,7 @@
   </bottom>
   <center>
       <Pane prefHeight="200.0" prefWidth="200.0" fx:id="imagepane">
-          <ImageView fx:id="camview" fitHeight="480.0" fitWidth="640.0" pickOnBounds="true" preserveRatio="true"/>
+          <ImageView fx:id="camview" fitWidth="640"  fitHeight="480.0" pickOnBounds="true" preserveRatio="true" />
           <Polygon id="selection" fx:id="bounds" fill="TRANSPARENT" layoutX="0.0" layoutY="0.0" stroke="BLACK"
                    strokeType="INSIDE">
               <points>

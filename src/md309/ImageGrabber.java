@@ -18,9 +18,15 @@ final class ImageGrabber {
     private VideoCapture vc;
     private List<Point> bounds;
 
+
+    private double frameHeight = 0;
+    private double frameWidth = 0;
+
     public ImageGrabber() {
         // Should take device as a parameter
         vc = new VideoCapture(0);
+        frameHeight =  640; //vc.get(Highgui.CV_CAP_PROP_FRAME_HEIGHT);
+        frameWidth = 480; // vc.get(Highgui.CV_CAP_PROP_FRAME_WIDTH);
     }
 
     public void setTransform(Double[] points) {
@@ -48,12 +54,12 @@ final class ImageGrabber {
                     bounds.get(3));
             // TODO: Don't hardcode things
             MatOfPoint2f dst = new MatOfPoint2f(new Point(0,0),
-                                                new Point(640,0),
-                                                new Point(640,480),
-                                                new Point(0,480));
+                                                new Point(frameWidth,0),
+                                                new Point(frameWidth,frameHeight),
+                                                new Point(0,frameHeight));
             Mat transform = Imgproc.getPerspectiveTransform(src,dst);
             Mat result = new Mat();
-            Imgproc.warpPerspective(m,result,transform,new Size(640,480));
+            Imgproc.warpPerspective(m,result,transform,new Size(frameWidth,frameHeight));
             m = result;
         }
 
