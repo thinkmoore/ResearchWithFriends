@@ -27,7 +27,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 
 
-public class Controller implements Initializable {
+public class Controller {
 
     private static final Logger LOG = LoggerFactory.getLogger(Controller.class);
 
@@ -70,12 +70,6 @@ public class Controller implements Initializable {
     public void moreSetup() {
         Stage st = (Stage) camview.getScene().getWindow();
         camview.fitWidthProperty().bind(st.widthProperty());
-        LOG.debug("more setup done");
-    }
-
-
-    public void initialize(URL location, ResourceBundle resources) {
-
 
         ig = new ImageGrabber();
         for (int i = 0; i < bounds.getPoints().size(); i += 2) {
@@ -100,6 +94,8 @@ public class Controller implements Initializable {
             imagepane.getChildren().add(handle);
             video.start();
         }
+
+        LOG.debug("more setup done");
     }
 
     private double dragDeltaX, dragDeltaY;
