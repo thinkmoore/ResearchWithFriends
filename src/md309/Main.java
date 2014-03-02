@@ -13,9 +13,15 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("gui.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("gui.fxml"));
+        Parent root = (Parent) fxmlLoader.load();
+
         primaryStage.setTitle("Research with Friends");
         primaryStage.setScene(new Scene(root));
+        Controller ctrl = fxmlLoader.getController();
+        ctrl.moreSetup();
+
+
         primaryStage.show();
     }
 

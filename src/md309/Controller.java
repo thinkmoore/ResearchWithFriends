@@ -15,13 +15,22 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
+import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicInteger;
 
+
+
+
 public class Controller implements Initializable {
+
+    private static final Logger LOG = LoggerFactory.getLogger(Controller.class);
+
     @FXML
     private ImageView camview;
     @FXML
@@ -56,7 +65,18 @@ public class Controller implements Initializable {
 
     private ImageGrabber ig;
 
+
+
+    public void moreSetup() {
+        Stage st = (Stage) camview.getScene().getWindow();
+        camview.fitWidthProperty().bind(st.widthProperty());
+        LOG.debug("more setup done");
+    }
+
+
     public void initialize(URL location, ResourceBundle resources) {
+
+
         ig = new ImageGrabber();
         for (int i = 0; i < bounds.getPoints().size(); i += 2) {
             Circle handle = new Circle(bounds.getPoints().get(i), bounds.getPoints().get(i+1), 5);
